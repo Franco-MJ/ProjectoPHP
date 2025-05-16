@@ -1,5 +1,7 @@
 <?php
-//php -S localhost:8000
+//php -S localhost:8080
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../config.php';
 
 // Autoload PSR‑4
 spl_autoload_register(function($c){
@@ -29,8 +31,17 @@ elseif ($uri === '/login' && $method === 'POST') {
 elseif ($uri === '/register' && $method === 'GET') {
     (new Controllers\RegisterController)->showRegister();
 }
+elseif ($uri === '/register' && $method === 'POST') {
+    (new Controllers\RegisterController)->tryRegister();
+}
+elseif ($uri === '/confirm' && $method === 'GET') {
+    (new Controllers\RegisterController)->confirmEmail();
+}
 elseif ($uri === '/forgot-password' && $method === 'GET') {
     (new Controllers\ForgotPasswordController)->showForgotPassword();
+}
+elseif ($uri === '/main' && $method === 'GET') {
+    (new Controllers\MainController)->showMain();
 }
 else {
     http_response_code(404);

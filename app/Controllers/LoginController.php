@@ -1,7 +1,7 @@
 <?php
 namespace Controllers;
 
-//require_once __DIR__ . '/../../config.php';
+use Models\UserModel;
 
 class LoginController {
 
@@ -13,12 +13,24 @@ class LoginController {
         $email    = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
-        if ($email === 'admin@example.com' && $password === '1234') {
-            echo "¡Bienvenido $email!";
+        $user = UserModel::findByEmail($email);
+        
+
+        if ($user && password_verify($password, $user['pass'])) {  
+            if (isset($user['isConfirmed']) && $user['isConfirmed'] == 1) {  
+                // Usuario validado
+                session_start();
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['email'] = $user['email'];
+                header('Location: /main');  
+                exit;
+            } 
+            else {
+                echo "Por favor confirma tu cuenta antes de iniciar sesión.";
+            }
         } 
         else {
-            echo "Credenciales incorrectas.";
+            echo "Email o contraseña incorrectos.";
         }
-
     }
 }

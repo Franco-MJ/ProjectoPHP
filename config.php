@@ -1,8 +1,8 @@
 <?php
 $host     = 'localhost';
-$dbname   = 'mi_base';
+$dbname   = 'todoList';
 $username = 'root';
-$password = 'secreto';
+$password = 'Matematicas_8891';
 $charset  = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
@@ -10,7 +10,7 @@ $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
 try {
     $pdo = new PDO($dsn, $username, $password, [
         // Para que PDO lance excepciones cuando hay errores
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         // Para que las consultas por defecto te devuelvan arrays asociativos
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     ]);
